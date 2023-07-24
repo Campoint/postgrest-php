@@ -1,0 +1,45 @@
+name: Create docs for latest version
+
+on: [release]
+
+# Allow GITHUB_TOKEN to deploy to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    name: Create documentation files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy changelog to docs directory
+        run: cp CHANGELOG.md docs/changelog/index.rst
+      - name: Cache phpdoc build files
+        id: phpdoc-cache
+        uses: actions/cache@v3
+        with:
+          path: .phpdoc/cache
+          key: ${{ runner.os }}-phpdoc-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-phpdoc-
+      - name: Build with phpdoc
+        run: docker run --rm --volume "$(pwd):/data" phpdoc/phpdoc:3 -vv --sourcecode
+      - name: Deploy latest docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/docs
+          destination_dir: latest
+      - name: Deploy release docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/docs
+          destination_dir: ${{github.ref_name}}

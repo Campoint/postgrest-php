@@ -1,0 +1,63 @@
+x-postgresql: &postgresql
+  container_name: postgresql
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: password
+  volumes:
+    - "./testing_db/initdb:/docker-entrypoint-initdb.d"
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready"]
+    interval: 5s
+    timeout: 3s
+    retries: 5
+
+x-postgrest: &postgrest
+  container_name: postgrest
+  ports:
+      - "8080:3000"
+  environment:
+    - PGRST_DB_URI=postgres://postgres:password@postgresql:5432/postgres
+    - PGRST_DB_SCHEMA=public,test_schema
+    - PGRST_DB_ANON_ROLE=anon
+    - PGRST_JWT_SECRET=reallyreallyreallyreallyverysafe
+
+services:
+  postgrest11:
+    image: postgrest/postgrest:v11.1.0
+    <<: *postgrest
+  postgrest10:
+    image: postgrest/postgrest:v10.2.0
+    <<: *postgrest
+  postgrest9:
+    image: postgrest/postgrest:v9.0.1.20220717
+    <<: *postgrest
+
+  postgresql15:
+    image: custom_postgres:15
+    build:
+      context: ./testing_db/db_image
+      args:
+        - POSTGRES_VERSION=15
+    <<: *postgresql
+  postgresql14:
+    image: custom_postgres:14
+    build:
+      context: ./testing_db/db_image
+      args:
+        - POSTGRES_VERSION=14
+    <<: *postgresql
+  postgresql13:
+    image: custom_postgres:13
+    build:
+      context: ./testing_db/db_image
+      args:
+        - POSTGRES_VERSION=13
+    <<: *postgresql
+  postgresql12:
+    build:
+      context: ./testing_db/db_image
+      args:
+        - POSTGRES_VERSION=12
+    image: custom_postgres:12
+    <<: *postgresql

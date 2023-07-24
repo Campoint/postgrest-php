@@ -1,0 +1,14 @@
+name: Update Packagist
+
+on: [release]
+
+jobs:
+  packagist:
+    name: Notify Packagist about new version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mnavarrocarter/packagist-update@v1.0
+        with:
+          username: "campoint"
+          api_token: ${{ secrets.packagist_token }}

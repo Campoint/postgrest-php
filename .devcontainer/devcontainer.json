@@ -1,0 +1,25 @@
+{
+	"name": "PHP",
+	"image": "mcr.microsoft.com/devcontainers/php:0-8.2",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+                "ecodes.vscode-phpmd",
+                "swordev.phpstan",
+                "xdebug.php-debug",
+                "recca0120.vscode-phpunit",
+                "bmewburn.vscode-intelephense-client",
+                "editorconfig.editorconfig"
+			]
+		}
+	},
+    "runArgs": [
+        "--network=host"
+    ],
+    "postStartCommand": "composer install --dev && composer dump-autoload -o --dev"
+}

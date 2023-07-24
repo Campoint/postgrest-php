@@ -1,0 +1,51 @@
+name: Create coverage report
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "src/**.php"
+      - "tests/**.php"
+    tags-ignore:
+      - "**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "src/**.php"
+      - "tests/**.php"
+
+jobs:
+  coverage:
+    name: Codecov PR coverage report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Start up database
+        run: docker-compose up -d --wait postgresql15
+      - name: Start up PostgREST server
+        run: docker-compose up -d --wait postgrest11
+      - name: Install project dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.1"
+          dev: yes
+      - name: Run integration test
+        uses: php-actions/phpunit@v3
+        with:
+          php_extensions: "xdebug"
+          coverage_clover: "coverage.xml"
+          configuration: ./phpunit.xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          files: coverage.xml

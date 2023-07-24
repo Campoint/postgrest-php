@@ -1,0 +1,9 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 93%
+        threshold: 1%
+
+comment:
+  require_changes: true

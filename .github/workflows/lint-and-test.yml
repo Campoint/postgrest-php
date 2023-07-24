@@ -1,0 +1,67 @@
+name: Lint and test
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "src/**.php"
+      - "tests/**.php"
+
+jobs:
+  lint:
+    name: Run linters and analyzers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install project dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: yes
+      - name: PHPStan Static Analysis
+        uses: php-actions/phpstan@v3
+        with:
+          configuration: ./phpstan.neon
+      - name: PHP Mess Detector Analysis
+        uses: php-actions/phpmd@v1
+        with:
+          php_version: 8.1
+          path: src/
+          output: github
+          ruleset: ./ruleset.xml
+      - name: Code style check
+        run: vendor/bin/ecs check --no-progress-bar --clear-cache --no-interaction
+
+  test:
+    name: Test with PostgreSQL 14 and PostgREST 11
+    needs: [lint]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        php: ["8.1", "8.2"]
+        postgresql: ["12", "13", "14", "15"]
+        postgrest: ["9", "10", "11"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ matrix.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ matrix.os }}-buildx-
+      - name: Start up database
+        run: docker-compose up -d --wait postgresql${{ matrix.postgresql }}
+      - name: Start up PostgREST server
+        run: docker-compose up -d --wait postgrest${{ matrix.postgrest }}
+      - name: Install project dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php }}
+          dev: yes
+      - name: Run all test cases
+        uses: php-actions/phpunit@v3
+        with:
+          configuration: ./phpunit.xml
