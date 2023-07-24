@@ -30,7 +30,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      - name: Start up database
+      - name: Start up services
         run: docker-compose up -d postgresql15 postgrest11
       - name: Install project dependencies
         uses: php-actions/composer@v6

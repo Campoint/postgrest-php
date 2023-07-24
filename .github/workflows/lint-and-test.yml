@@ -53,10 +53,8 @@ jobs:
           key: ${{ matrix.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ matrix.os }}-buildx-
-      - name: Start up database
-        run: docker-compose up -d --wait postgresql${{ matrix.postgresql }}
-      - name: Start up PostgREST server
-        run: docker-compose up -d --wait postgrest${{ matrix.postgrest }}
+      - name: Start up services
+        run: docker-compose up -d --wait postgresql${{ matrix.postgresql }} postgrest${{ matrix.postgrest }}
       - name: Install project dependencies
         uses: php-actions/composer@v6
         with:
