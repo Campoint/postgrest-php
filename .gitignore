@@ -1,0 +1,10 @@
+vendor/
+**/*.cache
+coverage/
+.vscode/settings.json
+composer.lock
+build/
+.phpdoc/
+docs/changelog/index.rst
+bak/
+TODOs
