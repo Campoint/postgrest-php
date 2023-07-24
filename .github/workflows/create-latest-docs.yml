@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Copy changelog to docs directory
-        run: mkdir docs/changelog && cp CHANGELOG.md docs/changelog/index.rst
+        run: mkdir docs/changelog && cp CHANGELOG.rst docs/changelog/index.rst
       - name: Cache phpdoc build files
         id: phpdoc-cache
         uses: actions/cache@v3
