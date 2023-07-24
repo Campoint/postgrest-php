@@ -20,11 +20,11 @@ class PostgrestSyncClient extends PostgrestBaseClient implements PostgrestClient
     /**
      * Authenticate the client synchronously using stored procedure
      *
-     * @return true When the authentication was successful.
+     * @return bool Return true if authentication was successful.
      * @throws FailedAuthException If the authentication fails.
      * @link https://postgrest.org/en/stable/how-tos/sql-user-management.html#logins
      */
-    public function auth(): true
+    public function auth(): bool
     {
         await($this->_auth());
         return true;

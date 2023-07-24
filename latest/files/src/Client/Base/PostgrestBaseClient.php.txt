@@ -154,11 +154,10 @@ abstract class PostgrestBaseClient
     /**
      * Authenticate the client using stored procedure.
      *
-     * @return PromiseInterface<true> The response.
+     * @return PromiseInterface<bool> The response.
      */
     final protected function _auth(): PromiseInterface
     {
-        /** @phpstan-ignore-next-line */
         return $this->_call(
             $this->authFunctionName,
             $this->authArguments ?? [],
