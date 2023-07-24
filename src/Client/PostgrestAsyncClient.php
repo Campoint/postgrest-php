@@ -18,7 +18,7 @@ class PostgrestAsyncClient extends PostgrestBaseClient implements PostgrestClien
     /**
      * Authenticate the client asynchronously using stored procedure.
      *
-     * @return PromiseInterface<true> The response.
+     * @return PromiseInterface<bool> The response.
      * @link https://postgrest.org/en/stable/how-tos/sql-user-management.html#logins
      */
     public function auth(): PromiseInterface

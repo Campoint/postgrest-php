@@ -41,9 +41,9 @@ interface PostgrestClientInterface
     /**
      * Authenticate the client.
      *
-     * @return true|PromiseInterface<true> Whether the authentication was successful.
+     * @return bool|PromiseInterface<bool> Whether the authentication was successful.
      */
-    public function auth(): true|PromiseInterface;
+    public function auth(): bool|PromiseInterface;
 
     /**
      * Create a new request builder for a table in a schema.
