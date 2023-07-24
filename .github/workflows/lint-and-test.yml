@@ -32,7 +32,10 @@ jobs:
     needs: [lint]
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        # Uncomment as soon as we can run Linux container on Windows
+        # ref: https://github.com/actions/runner-images/issues/1143
+        # os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         php: ["8.1", "8.2"]
         postgresql: ["12", "13", "14", "15"]
         postgrest: ["9", "10", "11"]
