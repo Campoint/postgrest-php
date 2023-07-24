@@ -4,7 +4,7 @@ postgrest-php
 PostgREST client for PHP. This library provides a synchronous and
 asynchronous interface to PostgREST.
 
-.. contents::
+.. contents:: Table of Contents
 
 Installation
 ------------
@@ -44,6 +44,7 @@ Sync
 Create a client for synchronous environments:
 
 .. code:: php
+
     $clientAuthConfig = new ClientAuthConfig(
         authArguments: [
             'email' => 'test@acme.dev',
