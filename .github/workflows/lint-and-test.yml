@@ -39,6 +39,9 @@ jobs:
         php: ["8.1", "8.2"]
         postgresql: ["12", "13", "14", "15"]
         postgrest: ["9", "10", "11"]
+        exclude:
+          - postgresql: "15"
+            postgrest: "9"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
