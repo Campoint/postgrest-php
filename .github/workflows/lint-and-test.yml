@@ -21,16 +21,9 @@ jobs:
         with:
           dev: yes
       - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v3
-        with:
-          configuration: ./phpstan.neon
+        run: vendor/bin/phpstan analyze
       - name: PHP Mess Detector Analysis
-        uses: php-actions/phpmd@v1
-        with:
-          php_version: 8.1
-          path: src/
-          output: github
-          ruleset: ./ruleset.xml
+        run: vendor/bin/phpmd src/ github ruleset.xml
       - name: Code style check
         run: vendor/bin/ecs check --no-progress-bar --clear-cache --no-interaction
 
@@ -61,6 +54,7 @@ jobs:
           php_version: ${{ matrix.php }}
           dev: yes
       - name: Run all test cases
-        uses: php-actions/phpunit@v3
-        with:
-          configuration: ./phpunit.xml
+        run: vendor/bin/phpunit tests
+        # uses: php-actions/phpunit@v3
+        # with:
+        #   configuration: ./phpunit.xml
