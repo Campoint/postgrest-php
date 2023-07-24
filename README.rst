@@ -1,6 +1,11 @@
 postgrest-php
 =============
 
+.. |License| https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+    :target: https://opensource.org/licenses/BSD-3-Clause
+.. image:: https://codecov.io/gh/Campoint/postgrest-php/branch/master/graph/badge.svg?token=7GPONL57NQ
+    :target: https://codecov.io/gh/Campoint/postgrest-php
+
 PostgREST client for PHP. This library provides a synchronous and
 asynchronous interface to PostgREST.
 
@@ -194,7 +199,7 @@ Advanced usage
 --------------
 
 If you need further documentation on how to use this library, refer to
-the documentation located `here <campoint.github.io/postgrest-php/latest>`.
+the documentation located `here <https://campoint.github.io/postgrest-php/latest>`_.
 
 Creating an issue
 -----------------

@@ -194,7 +194,7 @@ Advanced usage
 --------------
 
 If you need further documentation on how to use this library, refer to
-the documentation located `here <campoint.github.io/postgrest-php/latest>`.
+the documentation located `here <https://campoint.github.io/postgrest-php/latest>`_.
 
 Creating an issue
 -----------------
