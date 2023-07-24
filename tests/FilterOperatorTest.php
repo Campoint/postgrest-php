@@ -89,6 +89,10 @@ class FilterOperatorTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
 
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
+
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'filter_test_table')
@@ -112,6 +116,10 @@ class FilterOperatorTest extends TestCase
         $result = $response->result();
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
+
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
 
         $response = self::$client->run(
             self::$client
@@ -150,6 +158,10 @@ class FilterOperatorTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
 
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
+
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'filter_test_table')
@@ -173,6 +185,10 @@ class FilterOperatorTest extends TestCase
         $result = $response->result();
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
+
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
 
         $response = self::$client->run(
             self::$client
@@ -212,6 +228,10 @@ class FilterOperatorTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
 
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
+
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'filter_test_table')
@@ -241,6 +261,10 @@ class FilterOperatorTest extends TestCase
         $result = $response->result();
         $this->assertNotNull($result);
         $this->assertEquals(1, count($result));
+
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
 
         $response = self::$client->run(
             self::$client
@@ -272,6 +296,10 @@ class FilterOperatorTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals(10, count($result));
 
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
+
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'filter_test_table')
@@ -301,6 +329,10 @@ class FilterOperatorTest extends TestCase
         $result = $response->result();
         $this->assertNotNull($result);
         $this->assertEquals(10, count($result));
+
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            return;
+        }
 
         $response = self::$client->run(
             self::$client
@@ -354,6 +386,9 @@ class FilterOperatorTest extends TestCase
 
     public function testIsDistinctFilter(): void
     {
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            $this->markTestSkipped('PostgREST 9 and 10 do not support isdistinct filter.');
+        }
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'filter_test_table')

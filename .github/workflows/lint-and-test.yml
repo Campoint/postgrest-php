@@ -55,6 +55,8 @@ jobs:
           dev: yes
       - name: Run all test cases
         run: vendor/bin/phpunit tests
+        env:
+          POSTGREST_VERSION: ${{ matrix.postgrest }}
         # uses: php-actions/phpunit@v3
         # with:
         #   configuration: ./phpunit.xml

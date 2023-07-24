@@ -33,8 +33,7 @@ class InsertTest extends TestCase
             self::$client
                 ->from('test_schema', 'insert_test_table')
                 ->delete()
-                ->any()
-                ->eq('a', 'test1', 'test2')
+                ->in('a', 'test1', 'test2')
         );
     }
 
@@ -116,6 +115,9 @@ class InsertTest extends TestCase
 
     public function testMissingAsDefaultInsert(): void
     {
+        if (in_array(getenv('POSTGREST_VERSION'), ['9', '10'], true)) {
+            $this->markTestSkipped('Missing as default is not supported in PostgREST 9 and 10');
+        }
         $response = self::$client->run(
             self::$client
                 ->from('test_schema', 'insert_test_table')
