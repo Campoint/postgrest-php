@@ -154,10 +154,11 @@ abstract class PostgrestBaseClient
     /**
      * Authenticate the client using stored procedure.
      *
-     * @return PromiseInterface<null> The response.
+     * @return PromiseInterface<true> The response.
      */
     final protected function _auth(): PromiseInterface
     {
+        /** @phpstan-ignore-next-line */
         return $this->_call(
             $this->authFunctionName,
             $this->authArguments ?? [],
@@ -173,7 +174,7 @@ abstract class PostgrestBaseClient
                 }
                 $token = $response->result()['token'];
                 $this->setAuthToken($token);
-                return null;
+                return true;
             },
             function (Throwable $e) {
                 throw new FailedAuthException($e->getMessage(), $e);

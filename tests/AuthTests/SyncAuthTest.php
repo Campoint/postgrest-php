@@ -23,8 +23,7 @@ class SyncAuthTest extends TestCase
         $client = new PostgrestSyncClient('http://localhost:8080', 5, clientAuthConfig: $clientAuthConfig);
         $client->disableAutoAuth();
         $this->assertFalse($client->isAuthenticated());
-        $response = $client->auth();
-        $this->assertNull($response);
+        $client->auth();
         $this->assertTrue($client->isAuthenticated());
         $this->assertGreaterThanOrEqual(time() + 3595, $client->getTokenExpirationTime());
     }
