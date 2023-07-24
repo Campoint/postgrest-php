@@ -3,7 +3,7 @@ name: Create coverage report
 on:
   push:
     branches:
-      - "main"
+      - "master"
     paths:
       - "src/**.php"
       - "tests/**.php"
