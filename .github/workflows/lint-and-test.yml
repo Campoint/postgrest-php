@@ -7,6 +7,7 @@ on:
     paths:
       - "src/**.php"
       - "tests/**.php"
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -34,7 +35,7 @@ jobs:
         run: vendor/bin/ecs check --no-progress-bar --clear-cache --no-interaction
 
   test:
-    name: Test with PostgreSQL 14 and PostgREST 11
+    name: Test with all versions
     needs: [lint]
     strategy:
       matrix:
