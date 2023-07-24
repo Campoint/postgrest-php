@@ -12,8 +12,11 @@ Versioning <https://semver.org/spec/v2.0.0.html>`__.
     :local:
     :depth: 1
 
-[Unreleased]
-------------
+`[Unreleased] <https://campoint.github.io/postgrest-php/latest>`_
+-----------------------------------------------------------
+
+`[0.0.1] <https://campoint.github.io/postgrest-php/0.0.1>`_ - 2023-07-24
+------------------------------------------------------------------------
 
 Added
 ~~~~~
