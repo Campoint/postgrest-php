@@ -19,7 +19,7 @@ on:
 
 jobs:
   coverage:
-    name: Codecov PR coverage report
+    name: Codecov coverage report
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -39,6 +39,8 @@ jobs:
           dev: yes
       - name: Run integration test
         uses: php-actions/phpunit@v3
+        env:
+          XDEBUG_MODE: coverage
         with:
           php_extensions: "xdebug"
           coverage_clover: "coverage.xml"
