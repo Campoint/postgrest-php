@@ -1,10 +1,14 @@
 postgrest-php
 =============
 
-.. |License| https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
-    :target: https://opensource.org/licenses/BSD-3-Clause
+.. image:: https://img.shields.io/github/license/Campoint/postgrest-php
+.. image:: https://img.shields.io/badge/php-%5E8.1-blue
 .. image:: https://codecov.io/gh/Campoint/postgrest-php/branch/master/graph/badge.svg?token=7GPONL57NQ
     :target: https://codecov.io/gh/Campoint/postgrest-php
+.. image:: https://img.shields.io/github/v/release/Campoint/postgrest-php?include_prereleases
+.. image:: https://img.shields.io/github/commit-activity/m/Campoint/postgrest-php
+.. image:: https://img.shields.io/badge/docs-latest-8A2BE2
+    :target: https://campoint.github.io/postgrest-php/
 
 PostgREST client for PHP. This library provides a synchronous and
 asynchronous interface to PostgREST.
