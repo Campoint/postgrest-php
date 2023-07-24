@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder;
 
-use Exception;
 use PostgrestPhp\RequestBuilder\Enums\CountType;
 use PostgrestPhp\RequestBuilder\Enums\DataFormat;
 use PostgrestPhp\RequestBuilder\Enums\DuplicateResolution;
