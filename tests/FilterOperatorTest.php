@@ -7,10 +7,13 @@ namespace PostgrestPhp\Tests;
 use PHPUnit\Framework\TestCase;
 use PostgrestPhp\Client\Base\ClientAuthConfig;
 use PostgrestPhp\Client\PostgrestSyncClient;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\Enums\IsCheck;
+use PostgrestPhp\RequestBuilder\Enums\OperatorModifier;
 use PostgrestPhp\RequestBuilder\Enums\OverlapType;
 use PostgrestPhp\RequestBuilder\Exceptions\FilterLogicException;
 use PostgrestPhp\RequestBuilder\Exceptions\NotUnifiedValuesException;
+use PostgrestPhp\RequestBuilder\LogicOperatorCondition;
 
 class FilterOperatorTest extends TestCase
 {
@@ -621,5 +624,49 @@ class FilterOperatorTest extends TestCase
             ->from('test_schema', 'filter_test_table')
             ->select('*')
             ->adj('g', 10, 15.0);
+    }
+
+    public function testOrFilter(): void
+    {
+        $response = self::$client->run(
+            self::$client
+                ->from('test_schema', 'filter_test_table')
+                ->select('*')
+                ->or(
+                    (new LogicOperatorCondition('e', FilterOperators::GREATER_THAN, '2020-01-09')),
+                    (new LogicOperatorCondition('e', FilterOperators::LESS_THAN, '2020-01-02'))
+                )
+        );
+        $result = $response->result();
+        $this->assertNotNull($result);
+        $this->assertEquals(2, count($result));
+    }
+
+    public function testAndFilter(): void
+    {
+        $response = self::$client->run(
+            self::$client
+                ->from('test_schema', 'filter_test_table')
+                ->select('*')
+                ->and(
+                    (new LogicOperatorCondition('c', FilterOperators::IN, '(0.1,0.2)')),
+                    (new LogicOperatorCondition('a', FilterOperators::EQUAL, 'test1'))
+                )
+        );
+        $result = $response->result();
+        $this->assertNotNull($result);
+        $this->assertEquals(1, count($result));
+    }
+
+    public function testInvalidCondition(): void
+    {
+        $this->expectException(FilterLogicException::class);
+        new LogicOperatorCondition(
+            'e',
+            FilterOperators::GREATER_THAN,
+            '2020-01-09',
+            modifier: OperatorModifier::ALL,
+            language: 'english'
+        );
     }
 }
