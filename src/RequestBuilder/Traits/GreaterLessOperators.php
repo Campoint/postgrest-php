@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
-use PostgrestPhp\RequestBuilder\Enums\Operator;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\Exceptions\FilterLogicException;
 use PostgrestPhp\RequestBuilder\Exceptions\NotUnifiedValuesException;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
@@ -26,7 +26,7 @@ trait GreaterLessOperators
      */
     public function gt(string $columnName, string|int|float ...$value): PostgrestRequestBuilder
     {
-        return $this->greaterLessHelper(Operator::GREATER_THAN, $columnName, ...$value);
+        return $this->greaterLessHelper(FilterOperators::GREATER_THAN, $columnName, ...$value);
     }
 
     /**
@@ -41,7 +41,7 @@ trait GreaterLessOperators
      */
     public function gte(string $columnName, string|int|float ...$value): PostgrestRequestBuilder
     {
-        return $this->greaterLessHelper(Operator::GREATER_THAN_OR_EQUAL, $columnName, ...$value);
+        return $this->greaterLessHelper(FilterOperators::GREATER_THAN_OR_EQUAL, $columnName, ...$value);
     }
 
     /**
@@ -56,7 +56,7 @@ trait GreaterLessOperators
      */
     public function lt(string $columnName, string|int|float ...$value): PostgrestRequestBuilder
     {
-        return $this->greaterLessHelper(Operator::LESS_THAN, $columnName, ...$value);
+        return $this->greaterLessHelper(FilterOperators::LESS_THAN, $columnName, ...$value);
     }
 
     /**
@@ -71,13 +71,13 @@ trait GreaterLessOperators
      */
     public function lte(string $columnName, string|int|float ...$value): PostgrestRequestBuilder
     {
-        return $this->greaterLessHelper(Operator::LESS_THAN_OR_EQUAL, $columnName, ...$value);
+        return $this->greaterLessHelper(FilterOperators::LESS_THAN_OR_EQUAL, $columnName, ...$value);
     }
 
     /**
      * Greater than operator helper.
      * Prevents code duplication.
-     * @param Operator $op The operator to use.
+     * @param FilterOperators $op The operator to use.
      * @param string $columnName The name of the column.
      * @param string|int|float ...$value The value(s) to use.
      * @return PostgrestRequestBuilder The PostgrestRequestBuilder instance.
@@ -85,7 +85,7 @@ trait GreaterLessOperators
      * @throws NotUnifiedValuesException If the value types are not unified.
      */
     private function greaterLessHelper(
-        Operator $op,
+        FilterOperators $op,
         string $columnName,
         string|int|float ...$value,
     ): PostgrestRequestBuilder {

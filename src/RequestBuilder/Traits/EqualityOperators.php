@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\Enums\IsCheck;
-use PostgrestPhp\RequestBuilder\Enums\Operator;
 use PostgrestPhp\RequestBuilder\Exceptions\FilterLogicException;
 use PostgrestPhp\RequestBuilder\Exceptions\NotUnifiedValuesException;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
@@ -29,7 +29,7 @@ trait EqualityOperators
     {
         $numValues = count($value);
         $this->checkOperatorModifier($numValues, $value);
-        $operator = $this->negateOperator(Operator::EQUAL, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::EQUAL, $this->negateNextFilter);
         if ($numValues > 1) {
             $operator = $this->applyOperatorModifier($operator);
             $transformedValue = $this->helper::implodeWithBraces($value, '{', '}');
@@ -49,7 +49,7 @@ trait EqualityOperators
      */
     public function neq(string $columnName, string|int|float $value): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::NOT_EQUAL, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::NOT_EQUAL, $this->negateNextFilter);
         return $this->filterRawColumn($columnName, $operator, $this->helper::escapeString($value));
     }
 
@@ -63,7 +63,7 @@ trait EqualityOperators
      */
     public function is(string $columnName, IsCheck $value): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::IS, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::IS, $this->negateNextFilter);
         return $this->filterRawColumn($columnName, $operator, $value->value);
     }
 
@@ -81,7 +81,7 @@ trait EqualityOperators
         if (! $this->helper::checkUnifiedValueTypes($value)) {
             throw new NotUnifiedValuesException(NotUnifiedValuesException::NOT_UNIFIED_ARRAY);
         }
-        $operator = $this->negateOperator(Operator::IN, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::IN, $this->negateNextFilter);
         $transformedValue = $this->helper::implodeWithBraces($value, '(', ')');
         return $this->filterRawColumn($columnName, $operator, $transformedValue);
     }
@@ -96,7 +96,7 @@ trait EqualityOperators
      */
     public function isdistinct(string $columnName, string|int|float $value): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::IS_DISTINCT_FROM, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::IS_DISTINCT_FROM, $this->negateNextFilter);
         return $this->filterRawColumn($columnName, $operator, $this->helper::escapeString($value));
     }
 }

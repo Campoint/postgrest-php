@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
-use PostgrestPhp\RequestBuilder\Enums\Operator;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\Exceptions\FilterLogicException;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
 
@@ -24,7 +24,7 @@ trait PatternMatchingOperators
      */
     public function like(string $columnName, string ...$value): PostgrestRequestBuilder
     {
-        return $this->patternMatchingHelper(Operator::LIKE, $columnName, ...$value);
+        return $this->patternMatchingHelper(FilterOperators::LIKE, $columnName, ...$value);
     }
 
     /**
@@ -38,7 +38,7 @@ trait PatternMatchingOperators
      */
     public function ilike(string $columnName, string ...$value): PostgrestRequestBuilder
     {
-        return $this->patternMatchingHelper(Operator::ILIKE, $columnName, ...$value);
+        return $this->patternMatchingHelper(FilterOperators::ILIKE, $columnName, ...$value);
     }
 
     /**
@@ -52,7 +52,7 @@ trait PatternMatchingOperators
      */
     public function match(string $columnName, string ...$value): PostgrestRequestBuilder
     {
-        return $this->patternMatchingHelper(Operator::MATCH, $columnName, ...$value);
+        return $this->patternMatchingHelper(FilterOperators::MATCH, $columnName, ...$value);
     }
 
     /**
@@ -66,20 +66,20 @@ trait PatternMatchingOperators
      */
     public function imatch(string $columnName, string ...$value): PostgrestRequestBuilder
     {
-        return $this->patternMatchingHelper(Operator::IMATCH, $columnName, ...$value);
+        return $this->patternMatchingHelper(FilterOperators::IMATCH, $columnName, ...$value);
     }
 
     /**
      * Pattern matching operator helper.
      * Prevents code duplication.
-     * @param Operator $op The operator to use.
+     * @param FilterOperators $op The operator to use.
      * @param string $columnName The name of the column.
      * @param string ...$value The value(s) to use.
      * @return PostgrestRequestBuilder The PostgrestRequestBuilder instance.
      * @throws FilterLogicException If multiple values are passed without modifier like all() or any().
      */
     private function patternMatchingHelper(
-        Operator $op,
+        FilterOperators $op,
         string $columnName,
         string ...$value,
     ): PostgrestRequestBuilder {

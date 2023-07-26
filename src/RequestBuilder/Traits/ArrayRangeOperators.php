@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
-use PostgrestPhp\RequestBuilder\Enums\Operator;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\Enums\OverlapType;
 use PostgrestPhp\RequestBuilder\Exceptions\NotUnifiedValuesException;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
@@ -25,7 +25,7 @@ trait ArrayRangeOperators
      */
     public function cs(string $columnName, array $value): PostgrestRequestBuilder
     {
-        return $this->arrayHelper(Operator::CONTAINS, $columnName, $value, ['{', '}']);
+        return $this->arrayHelper(FilterOperators::CONTAINS, $columnName, $value, ['{', '}']);
     }
 
     /**
@@ -39,7 +39,7 @@ trait ArrayRangeOperators
      */
     public function cd(string $columnName, array $value): PostgrestRequestBuilder
     {
-        return $this->arrayHelper(Operator::CONTAINED_IN, $columnName, $value, ['{', '}']);
+        return $this->arrayHelper(FilterOperators::CONTAINED_IN, $columnName, $value, ['{', '}']);
     }
 
     /**
@@ -60,7 +60,7 @@ trait ArrayRangeOperators
         if (! $this->helper::checkUnifiedValueTypes($value)) {
             throw new NotUnifiedValuesException(NotUnifiedValuesException::NOT_UNIFIED_ARRAY);
         }
-        $operator = $this->negateOperator(Operator::OVERLAP, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::OVERLAP, $this->negateNextFilter);
         $transformedValue = $this->helper::implodeWithBraces($value, $overlapType->value[0], $overlapType->value[1]);
         return $this->filterRawColumn($columnName, $operator, $transformedValue);
     }
@@ -77,7 +77,7 @@ trait ArrayRangeOperators
      */
     public function sl(string $columnName, int|float $start, int|float $end): PostgrestRequestBuilder
     {
-        return $this->rangeHelper(Operator::STRICTLY_LEFT_OF, $columnName, $start, $end);
+        return $this->rangeHelper(FilterOperators::STRICTLY_LEFT_OF, $columnName, $start, $end);
     }
 
     /**
@@ -92,7 +92,7 @@ trait ArrayRangeOperators
      */
     public function sr(string $columnName, int|float $start, int|float $end): PostgrestRequestBuilder
     {
-        return $this->rangeHelper(Operator::STRICTLY_RIGHT_OF, $columnName, $start, $end);
+        return $this->rangeHelper(FilterOperators::STRICTLY_RIGHT_OF, $columnName, $start, $end);
     }
 
     /**
@@ -107,7 +107,7 @@ trait ArrayRangeOperators
      */
     public function nxr(string $columnName, int|float $start, int|float $end): PostgrestRequestBuilder
     {
-        return $this->rangeHelper(Operator::NOT_EXTEND_TO_RIGHT, $columnName, $start, $end);
+        return $this->rangeHelper(FilterOperators::NOT_EXTEND_TO_RIGHT, $columnName, $start, $end);
     }
 
     /**
@@ -122,7 +122,7 @@ trait ArrayRangeOperators
      */
     public function nxl(string $columnName, int|float $start, int|float $end): PostgrestRequestBuilder
     {
-        return $this->rangeHelper(Operator::NOT_EXTEND_TO_LEFT, $columnName, $start, $end);
+        return $this->rangeHelper(FilterOperators::NOT_EXTEND_TO_LEFT, $columnName, $start, $end);
     }
 
     /**
@@ -137,13 +137,13 @@ trait ArrayRangeOperators
      */
     public function adj(string $columnName, int|float $start, int|float $end): PostgrestRequestBuilder
     {
-        return $this->rangeHelper(Operator::ADJACENT, $columnName, $start, $end);
+        return $this->rangeHelper(FilterOperators::ADJACENT, $columnName, $start, $end);
     }
 
     /**
      * Array operator helper.
      * Prevents code duplication.
-     * @param Operator $op The operator to use.
+     * @param FilterOperators $op The operator to use.
      * @param string $columnName The name of the column.
      * @param string[]|int[]|float[] $value The value to use.
      * @param string[] $braces The braces to use.
@@ -151,7 +151,7 @@ trait ArrayRangeOperators
      * @throws NotUnifiedValuesException If the value types are not unified.
      */
     private function arrayHelper(
-        Operator $op,
+        FilterOperators $op,
         string $columnName,
         array $value,
         array $braces,
@@ -167,7 +167,7 @@ trait ArrayRangeOperators
     /**
      * Range operator helper.
      * Prevents code duplication.
-     * @param Operator $op The operator to use.
+     * @param FilterOperators $op The operator to use.
      * @param string $columnName The name of the column.
      * @param int|float $start The start value to use.
      * @param int|float $end The end value to use.
@@ -175,7 +175,7 @@ trait ArrayRangeOperators
      * @throws NotUnifiedValuesException If the start and end types are not unified.
      */
     private function rangeHelper(
-        Operator $op,
+        FilterOperators $op,
         string $columnName,
         int|float $start,
         int|float $end,

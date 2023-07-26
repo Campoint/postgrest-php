@@ -17,6 +17,8 @@ class FilterLogicException extends Exception
 
     final public const DUPLICATE_RESOLUTION_REQUIRED = 'Duplicate resolution required for upsert()';
 
+    final public const INVALID_CONDITION = 'Cannot use modifier and language at the same time';
+
     /**
      * Create a new FilterLogicException.
      *
