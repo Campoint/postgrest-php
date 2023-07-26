@@ -1,6 +1,6 @@
 name: Update Packagist
 
-on: [release]
+on: [push, release]
 
 jobs:
   packagist:
@@ -9,8 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Update Packagist
-        run: echo FIXME
-      # - uses: mnavarrocarter/packagist-update@v1.0
-      #   with:
-      #     username: "campoint"
-      #     api_token: ${{ secrets.packagist_token }}
+        uses: mnavarrocarter/packagist-update@v1.0
+        with:
+          username: "campoint"
+          api_token: ${{ secrets.PACKAGIST_TOKEN }}

@@ -7,6 +7,8 @@ on:
     paths:
       - "src/**.php"
       - "tests/**.php"
+      - "codecov.yml"
+      - ".github/workflows/create-coverage-report.yml"
     tags-ignore:
       - "**"
   pull_request:
@@ -15,6 +17,8 @@ on:
     paths:
       - "src/**.php"
       - "tests/**.php"
+      - "codecov.yml"
+      - ".github/workflows/create-coverage-report.yml"
   workflow_dispatch:
 
 jobs:
@@ -41,6 +45,7 @@ jobs:
         uses: php-actions/phpunit@v3
         env:
           XDEBUG_MODE: coverage
+          POSTGREST_VERSION: "11"
         with:
           php_extensions: "xdebug"
           coverage_clover: "coverage.xml"
