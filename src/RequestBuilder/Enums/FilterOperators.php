@@ -9,7 +9,7 @@ namespace PostgrestPhp\RequestBuilder\Enums;
  *
  * @link https://postgrest.org/en/stable/references/api/tables_views.html#operators
  */
-enum Operator: string
+enum FilterOperators: string
 {
     case EQUAL = 'eq';
     case GREATER_THAN = 'gt';
@@ -36,9 +36,4 @@ enum Operator: string
     case NOT_EXTEND_TO_RIGHT = 'nxr';
     case NOT_EXTEND_TO_LEFT = 'nxl';
     case ADJACENT = 'adj';
-    case NOT = 'not';
-    case OR = 'or';
-    case AND = 'and';
-    case ALL = 'all';
-    case ANY = 'any';
 }

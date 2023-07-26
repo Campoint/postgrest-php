@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
-use PostgrestPhp\RequestBuilder\Enums\Operator;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
 
 /**
@@ -23,7 +23,7 @@ trait FullTextSearchOperators
      */
     public function fts(string $columnName, string $value, ?string $language = null): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::FULL_TEXT_SEARCH, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::FULL_TEXT_SEARCH, $this->negateNextFilter);
         return $this->ftsHelper($operator, $columnName, $value, $language);
     }
 
@@ -38,7 +38,7 @@ trait FullTextSearchOperators
      */
     public function plfts(string $columnName, string $value, ?string $language = null): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::PLAIN_FULL_TEXT_SEARCH, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::PLAIN_FULL_TEXT_SEARCH, $this->negateNextFilter);
         return $this->ftsHelper($operator, $columnName, $value, $language);
     }
 
@@ -53,7 +53,7 @@ trait FullTextSearchOperators
      */
     public function phfts(string $columnName, string $value, ?string $language = null): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::PHRASE_FULL_TEXT_SEARCH, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::PHRASE_FULL_TEXT_SEARCH, $this->negateNextFilter);
         return $this->ftsHelper($operator, $columnName, $value, $language);
     }
 
@@ -68,7 +68,7 @@ trait FullTextSearchOperators
      */
     public function wfts(string $columnName, string $value, ?string $language = null): PostgrestRequestBuilder
     {
-        $operator = $this->negateOperator(Operator::WEBSEARCH_FULL_TEXT_SEARCH, $this->negateNextFilter);
+        $operator = $this->negateOperator(FilterOperators::WEBSEARCH_FULL_TEXT_SEARCH, $this->negateNextFilter);
         return $this->ftsHelper($operator, $columnName, $value, $language);
     }
 

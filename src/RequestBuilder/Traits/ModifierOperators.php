@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace PostgrestPhp\RequestBuilder\Traits;
 
-use PostgrestPhp\RequestBuilder\Enums\Operator;
+use PostgrestPhp\RequestBuilder\Enums\FilterOperators;
+use PostgrestPhp\RequestBuilder\Enums\LogicOperators;
+use PostgrestPhp\RequestBuilder\Enums\OperatorModifier;
 use PostgrestPhp\RequestBuilder\Exceptions\FilterLogicException;
 use PostgrestPhp\RequestBuilder\Exceptions\NotUnifiedValuesException;
 use PostgrestPhp\RequestBuilder\PostgrestRequestBuilder;
@@ -67,15 +69,15 @@ trait ModifierOperators
     /**
      * Prepend negation to operator if necessary.
      *
-     * @param Operator $operator The operator to use.
+     * @param FilterOperators|LogicOperators $operator The operator to use.
      * @param bool $negate Whether to negate the operator.
      * @return string The operator.
      */
-    private function negateOperator(Operator $operator, bool $negate): string
+    private function negateOperator(FilterOperators|LogicOperators $operator, bool $negate): string
     {
         if ($negate) {
             $this->negateNextFilter = false;
-            return sprintf('%s.%s', Operator::NOT->value, $operator->value);
+            return sprintf('%s.%s', LogicOperators::NOT->value, $operator->value);
         }
         return $operator->value;
     }
@@ -89,7 +91,7 @@ trait ModifierOperators
     private function allOperator(string $operator): string
     {
         $this->allNextFilter = false;
-        return sprintf('%s(%s)', $operator, Operator::ALL->value);
+        return sprintf('%s(%s)', $operator, OperatorModifier::ALL->value);
     }
 
     /**
@@ -101,7 +103,7 @@ trait ModifierOperators
     private function anyOperator(string $operator): string
     {
         $this->allNextFilter = false;
-        return sprintf('%s(%s)', $operator, Operator::ANY->value);
+        return sprintf('%s(%s)', $operator, OperatorModifier::ANY->value);
     }
 
     /**

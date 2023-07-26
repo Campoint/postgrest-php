@@ -31,6 +31,28 @@ pass it to the ``run()`` method of the client.
 
     $response = $client->run($query);
 
+Complex logic conditions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``PostgrestRequestBuilder`` supports complex logic conditions using ``and``/ ``or``.
+Unfortunately, when using ``and``/ ``or`` the ``PostgrestRequestBuilder`` will not be able to,
+escape the values for you. You will have to escape the values yourself.
+
+.. code:: php
+
+    $query = $client->from('schema_name', 'table_name')
+        ->select('*')
+        ->or(
+            (new LogicOperatorCondition('a', FilterOperator::EQUAL, 42)),
+            (new LogicOperatorCondition('b', FilterOperator::LESS_THAN, 2.0, negate: true)),
+            // escape strings yourself
+            (new LogicOperatorCondition('c', FilterOperator::IN, '("foo bar",bar)')),
+        );
+
+Nested complex logic conditions are not supported using the LogicOperatorCondition class.
+You will need to build the string yourself. You can implement your own logic condition class
+which implements the ``Stringable`` interface, as the functions ``or()`` and ``and()`` accept this interface.
+
 Exceptions
 ----------
 

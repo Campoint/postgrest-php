@@ -13,7 +13,37 @@ Versioning <https://semver.org/spec/v2.0.0.html>`__.
     :depth: 1
 
 `[Unreleased] <https://campoint.github.io/postgrest-php/latest>`_
------------------------------------------------------------
+-----------------------------------------------------------------
+
+Added
+~~~~~
+
+-  Support for complex logic conditions using and/or (`#4 <https://github.com/Campoint/postgrest-php/pull/4>`_)
+
+Changed
+~~~~~~~
+
+-  n/a
+
+Deprecated
+~~~~~~~~~~
+
+-  n/a
+
+Removed
+~~~~~~~
+
+-  n/a
+
+Fixed
+~~~~~
+
+-  n/a
+
+Security
+~~~~~~~~
+
+-  n/a
 
 `[0.0.1] <https://campoint.github.io/postgrest-php/0.0.1>`_ - 2023-07-24
 ------------------------------------------------------------------------

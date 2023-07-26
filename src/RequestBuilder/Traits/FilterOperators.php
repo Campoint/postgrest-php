@@ -13,6 +13,7 @@ trait FilterOperators
 {
     use ModifierOperators;
     use EqualityOperators;
+    use LogicalOperators;
     use GreaterLessOperators;
     use PatternMatchingOperators;
     use FullTextSearchOperators;
