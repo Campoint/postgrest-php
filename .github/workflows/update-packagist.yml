@@ -1,6 +1,10 @@
 name: Update Packagist
 
-on: [push, release]
+on:
+  push:
+    branches:
+      - "master"
+  release:
 
 jobs:
   packagist:
