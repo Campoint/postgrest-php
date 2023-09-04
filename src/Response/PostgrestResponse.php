@@ -28,7 +28,7 @@ class PostgrestResponse
     /**
      * @var array<string, string|int|float>
      */
-    private array $location;
+    private array $location = [];
 
     private int $contentRangeStart = 0;
 

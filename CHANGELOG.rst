@@ -15,6 +15,36 @@ Versioning <https://semver.org/spec/v2.0.0.html>`__.
 `[Unreleased] <https://campoint.github.io/postgrest-php/latest>`_
 -----------------------------------------------------------
 
+Added
+~~~~~
+
+-  n/a
+
+Changed
+~~~~~~~
+
+-  n/a
+
+Deprecated
+~~~~~~~~~~
+
+-  n/a
+
+Removed
+~~~~~~~
+
+-  n/a
+
+Fixed
+~~~~~
+
+-  Initialize properties with default values, to avoid errors when calling methods before setting properties
+
+Security
+~~~~~~~~
+
+-  n/a
+
 `[0.0.1] <https://campoint.github.io/postgrest-php/0.0.1>`_ - 2023-07-24
 ------------------------------------------------------------------------
 

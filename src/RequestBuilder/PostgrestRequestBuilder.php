@@ -53,6 +53,7 @@ class PostgrestRequestBuilder
             'Content-Profile' => $this->schemaName,
         ];
         $this->filters = [];
+        $this->method = '';
         $this->body = null;
         $this->helper = new Helper();
     }

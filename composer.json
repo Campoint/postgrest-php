@@ -3,7 +3,6 @@
     "description": "PostgREST client for PHP. This library provides a synchronous and asynchronous interface to PostgREST.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "0.0.1",
     "authors": [
         {
             "name": "Kirill Fuks",
