@@ -14,15 +14,15 @@ use Throwable;
  */
 class PostgrestErrorException extends Exception
 {
-    private ?int $statusCode;
+    private ?int $statusCode = null;
 
-    private ?string $reasonPhrase;
+    private ?string $reasonPhrase = null;
 
-    private ?string $responseBody;
+    private ?string $responseBody = null;
 
-    private ?string $postgrestErrorCode;
+    private ?string $postgrestErrorCode = null;
 
-    private ?string $postgrestErrorMessage;
+    private ?string $postgrestErrorMessage = null;
 
     /**
      * Create a new PostgrestErrorException.
